@@ -33,11 +33,17 @@ redcarpet:
   ]
 
 #
-baseurl: #'/'
+url:		#
+baseurl: 	#'/'
 
 #
 paginate: 10
 paginate_path: ":num"
 
+#
+gems: 
+  - jekyll-paginate
+
+#
 exclude:
   - work/**
