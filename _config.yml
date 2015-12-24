@@ -36,6 +36,7 @@ baseurl: #'/'
 
 #
 paginate: 10
+paginate_path: ":num"
 
 exclude:
   - work/**
