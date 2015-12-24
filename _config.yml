@@ -1,7 +1,7 @@
 # Site Settings
-name:         SAS Toolbox
-description:  SAS Toolbox
-keywords:     "SAS, Toolbox"
+name:         Jekyll Toolbox
+description:  Jekyll Toolbox
+keywords:     "Jekyll, Toolbox"
 
 
 career-img: /assets/images/pic01.jpg
@@ -11,7 +11,6 @@ baseurl: #'/'
 
 #
 paginate: 10
-
 
 exclude:
   - work/**
