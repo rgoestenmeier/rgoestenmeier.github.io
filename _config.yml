@@ -1,0 +1,17 @@
+# Site Settings
+name:         SAS Toolbox
+description:  SAS Toolbox
+keywords:     "SAS, Toolbox"
+
+
+career-img: /assets/images/pic01.jpg
+
+#
+baseurl: #'/'
+
+#
+paginate: 10
+
+
+exclude:
+  - work/**
