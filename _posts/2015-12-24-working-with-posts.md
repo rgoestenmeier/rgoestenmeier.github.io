@@ -5,7 +5,7 @@ featured: /assets/images/box.png
 image: 	/assets/images/box.png
 ---
 
-## Access all posts
+# Access all posts
     {% for post in site.posts %}
     	div class="col-md-4 col-sm-6 portfolio-item">
     		<h4>{{ post.title }}</h4>
