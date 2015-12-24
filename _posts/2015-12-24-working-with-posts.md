@@ -14,4 +14,12 @@ image: 	/assets/images/box.png
     		</div>
     {% endfor %}
 ~~~
-    
+
+# Access all page tags
+~~~
+{% for tag in page.tags %}
+<li>
+    <a href="{{ '/tags' | prepend: site.baseurl | prepend: site.url }}#{{ tag }}"><span class="octicon octicon-tag"></span>&nbsp;{{ tag }}</a>
+</li>
+{% endfor %}                    
+~~~  
