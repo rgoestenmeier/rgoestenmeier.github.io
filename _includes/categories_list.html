@@ -1,9 +1,0 @@
-<ul>
-  {% for category in site.categories limit:include.limit %}
-    {% if category.first == page.category %}
-      <li><a href="{{ category.first | category_url }}">{{ category.first | capitalize }}</a></li>
-    {% else %}
-      <li><a href="{{ category.first | category_url }}">{{ category.first | capitalize }}</a></li>
-    {% endif %}
-  {% endfor %}
-</ul>
