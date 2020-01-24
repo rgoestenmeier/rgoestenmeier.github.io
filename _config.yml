@@ -1,7 +1,7 @@
 # Site
-name: 'Jekyll Toolbox'
-title: 'Jekyll Toolbox'
-description: 'Jekyll Toolbox - Tips, Tricks, Samples and more'
+name: 'Ralph Göstenmeier'
+title: 'Ralph Göstenmeier'
+description: 'Workd, Playground, Apps, Tips, Tricks, Samples and more'
 baseurl: '/'
 
 include: ["_pages"]
