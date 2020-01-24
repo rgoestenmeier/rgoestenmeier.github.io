@@ -1,0 +1,20 @@
+#!/usr/local/bin/bash
+
+
+FILES="enrichment-toolbox/enrichment-toolbox.github.io/run_build
+kotlin-toolbox/kotlin-toolbox.github.io/run_build
+clojurescript-toolbox/clojurescript-toolbox.github.io/run_build
+angularjs-toolbox/angularjs-toolbox.github.io/run_build
+fullstack-toolbox/fullstack-toolbox.github.io/run_build
+jekyll-toolbox/jekyll-toolbox.github.io/run_build
+angular-toolbox/angular-toolbox.github.io/run_build
+ionic-starter/ionic-starter.github.io/run_build
+ionic-training/ionic-training.github.io/run_build"
+
+for _FILE in $FILES
+do
+    _SRC=../../../$_FILE
+    _DST=${_FILE//\//_}
+
+    echo ln -s $_SRC $_DST
+done

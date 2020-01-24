@@ -1,0 +1,220 @@
+#!/usr/local/bin/bash
+
+#set -u
+
+_FLDR_CLOUD=/Users/Shared/CLOUD
+
+_LINK_GITHUB=https://github.com
+
+_USER="$(basename "$(dirname "$PWD")")"
+_HERE="$(cd ..; pwd)"
+
+_DIRGIT=$_FLDR_CLOUD/Development.GitHub/img.github.io
+_DIRIMG=../${_USER}.github.io/assets/img
+
+LOGL=1
+LOGPOS=10
+LOG() {
+	local _LOGL; _LOGL="$1";	shift
+	local _PAR1; _PAR1="$1"; 	shift
+	local _PAR2; _PAR2="$*"
+
+	(( LOGPOS = $LOGPOS + 1))
+
+	if  [[ $_LOGL -le $LOGL ]]; then
+		printf "# %4s: %-10s =%s\n" "$LOGPOS" "$_PAR1" "$_PAR2"
+		printf "# %4s: %-10s =%s\n" "$LOGPOS" "$_PAR1" "$_PAR2" >&2
+	fi
+}
+
+ADD() {
+	local _PAR1; _PAR1="${1}";
+	local _PAR2; _PAR2="${2:- }"
+
+	echo "${_PAR1} ${_PAR2}"
+}
+
+LOG 1 "Scanning repositories" "$_HERE"
+
+for _THISREP in $(ls -1dF ../* | grep -v -E 'github.io|bin' | grep -E '[\@/]$' | sort)
+do
+	LOGPOS=0
+
+	_STEP=""
+	_REPO="$(basename "$_THISREP" | tr -d '@')"
+
+	_TEMP="${_HERE}/${_REPO}"
+	if [[ -h "${_TEMP}" ]]; then
+		_TEMP="$(readlink "${_TEMP}")"
+
+		# basename
+		_REPO="${_TEMP##*/}"
+
+		# dirname
+		_TEMP="${_TEMP%/*}"
+		_USER="${_TEMP##*/}"
+	fi
+	LOG 2 "TEMP" "$_TEMP"
+
+	_TEMP="${_REPO%%_*}"							# Learning-TypeScript
+
+	LOG 2 "HERE" "$_HERE"
+	LOG 2 "REPO" "$_REPO"
+	LOG 2 "TEMP" "$_TEMP"
+	LOG 2 "USER" "$_USER"
+
+	_REALPATH="$(readlink "$_THISREP")"
+	_REALPATH="${_REALPATH#*repositories/}"
+
+	if [[ "$_REALPATH" = "" ]]; then
+		_THISUSR="$_USER"
+		_STEP="U1"
+	else
+		_THISUSR="$(dirname "$_REALPATH")"
+		_STEP="U1"
+	fi
+	LOG 2 "THISUSR" "$_THISUSR"
+
+	_LINK="$_LINK_GITHUB/$_THISUSR/$_REPO"
+	LOG 2 "LINK" "$_LINK"
+
+	if [[ -f "$_THISREP/DESCRIPTION" ]]; then
+		_TEXT=$(cat "$_THISREP/DESCRIPTION" | sed '1,$s/$/\<br\>/g')
+		_STEP="${_STEP}-T1"
+	else
+		_TEXT=""
+		_STEP="${_STEP}-T1"
+	fi
+	LOG 2 "TEXT" "$_TEXT"
+
+	_TITLE="missing"
+	_LANG="-"
+	_IMAGE="placeholder.png"
+
+	_CATEGORY="${_TEMP,,}"
+	LOG 2 "CATEGORY" "$_CATEGORY"
+
+	if [[ "$_TEMP" == "$_REPO" ]]; then
+		LOG 2 "SAME" "$_TEMP / $_REPO"
+		_SUBTITLE="$_TEMP"
+
+		_STEP="${_STEP}-S1"
+	else
+		_STEP="${_STEP}-S2"
+
+		_SUBTITLE="${_REPO#*_}"			# DataStructures-and-Algorithms-01
+		_SUBTITLE="${_SUBTITLE//-/ }"	# DataStructures and Algorithms 01
+
+		_TYPE="${_TEMP%%-*}"
+		_LANG="${_TEMP#*-}"
+		_LANG="${_LANG,,}"
+
+		LOG 2 "SUBTITLE" "$_SUBTITLE"
+		LOG 2 "TYPE"     "$_TYPE"
+		LOG 2 "LANG"     "$_LANG"
+
+		if [[ "${_LANG}" == "${_TYPE,,}" ]]; then
+			_LANG=""
+			_STEP="${_STEP}-L1"
+		else
+			_STEP="${_STEP}-L#"
+		fi
+
+		LOG 2 "LANG" "$_LANG"
+
+		if [[ "$_TYPE" = "$_LANG" ]]; then
+			_TITLE="$_TYPE"
+			LOG 2 "TITLE" "$_TITLE"
+
+			_STEP="${_STEP}-T1"
+		else
+			_TITLE="$_TYPE $_LANG"
+			LOG 2 "TITLE" "$_TITLE"
+
+			_STEP="${_STEP}-T2"
+		fi
+
+		_IMAGE="${_SUBTITLE/ /-}.png"
+		_IMAGE="${_IMAGE,,}"
+
+		LOG 2 "check image" "$_DIRIMG/$_IMAGE"
+		if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
+			LOG 2 "use existing image" "$_DIRIMG/$_IMAGE"
+
+			_STEP="${_STEP}-I1"
+		elif [[ -f "$_DIRGIT/$_IMAGE" ]]; then
+			cp "$_DIRGIT/$_IMAGE" "$_DIRIMG"
+			LOG 2 "copy master image" "$_DIRGIT/$_IMAGE"
+
+			_STEP="${_STEP}-I2"
+		else
+			_IMAGE="${_CATEGORY/ /-}.png"
+			_IMAGE="${_IMAGE,,}"
+			LOG 2 "check new image" "$_DIRIMG/$_IMAGE"
+
+			if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
+				LOG 2 "use new existing image" "$_DIRIMG/$_IMAGE"
+
+				_STEP="${_STEP}-I3"
+			elif [[ -f "$_DIRGIT/$_IMAGE" ]]; then
+				LOG 1 "copy master image" "$_DIRGIT/$_IMAGE $_DIRIMG"
+				cp "$_DIRGIT/$_IMAGE" "$_DIRIMG"
+
+				_STEP="${_STEP}-I4"
+			else
+				_STEP="${_STEP}-I#"
+			fi
+		fi
+
+		if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
+			_STEP="${_STEP}-M#"
+		else
+			_IMAGE="placeholder.png"
+
+			_STEP="${_STEP}-M1"
+		fi
+
+		[[ "$_CATEGORY" =~ "missing"	]] && _CATEGORY=missing
+		[[ "$_CATEGORY" =~ "learning"	]] && _CATEGORY=learn
+		[[ "$_CATEGORY" =~ "awesome"	]] && _CATEGORY=learn
+		[[ "$_CATEGORY" =~ "koans"		]] && _CATEGORY=test
+		[[ "$_CATEGORY" =~ "course"		]] && _CATEGORY=practice
+		[[ "$_CATEGORY" =~ "workshop"	]] && _CATEGORY=practice
+
+		LOG 2 "CATEGORY/IM" "$_CATEGORY / $_IMAGE"
+	fi
+
+	if [[ "$_TITLE" == "missing" ]]; then
+		_TITLE="$_SUBTITLE"
+		_SUBTITLE=""
+
+		_STEP="${_STEP}-T1"
+	else
+		_STEP="${_STEP}-T#"
+
+	fi
+
+	_TITLE="${_TITLE/css/CSS}"
+	_TITLE="${_TITLE/html/HTML}"
+	_TITLE="${_TITLE/javascript/Javascript}"
+	_TITLE="${_TITLE/typescript/Typescript}"
+	_TITLE="${_TITLE/ionic/Ionic}"
+	_TITLE="${_TITLE/angular/Angular}"
+	_TITLE="${_TITLE/docker/Docker}"
+	_TITLE="${_TITLE/jenkins/Jenkins}"
+	_TITLE="${_TITLE/python/Python}"
+	_TITLE="${_TITLE/ math/ Math}"
+
+	ADD "- title:"		"\"$_TITLE\""
+	ADD "  subtitle:"	"\"$_SUBTITLE\""
+	ADD "  text:"		"\"$_TEXT\""
+	ADD "  link:"		"\"$_LINK\""
+	ADD "  lang:"		"\"$_LANG\""
+	ADD "  img:"		"\"${_IMAGE,,}\""
+	ADD "  rep:"		"\"${_THISREP/\.\.\//}\""
+	ADD "  category:"	"\"${_CATEGORY}\""
+	ADD "  step:"		"\"${_STEP}\""
+	echo ""
+	echo "#"
+
+done | grep -v '#_DBG' | cat > _data/repositories.yml

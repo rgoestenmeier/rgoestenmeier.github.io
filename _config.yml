@@ -1,15 +1,29 @@
-title:              Clean Blog
-email:              your-email@example.com
-description:        A Blog Theme by Start Bootstrap
-author:             Start Bootstrap
-baseurl:            "/"
-url:                "https://jekyll-toolbox.github.io"
+# Site
+name: 'Jekyll Toolbox'
+title: 'Jekyll Toolbox'
+description: 'Jekyll Toolbox - Tips, Tricks, Samples and more'
+baseurl: '/'
 
-# Build settings
-markdown:           kramdown
-paginate:           5
-paginate_path:      "/posts/page:num/"
-plugins:
-  - jekyll-feed
-  - jekyll-paginate
-  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+include: ["_pages"]
+#permalink: /:title/
+
+#plugins:
+#  - jekyll-feed
+#  - jekyll-sitemap
+#  - jekyll-paginate
+#  - jekyll-seo-tag
+
+# Syntax
+markdown: kramdown
+highlighter: rouge
+
+# Pagination
+#paginate: 20
+
+# Exclude metadata and development time dependencies (like Grunt plugins)
+exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
+
+#
+sass:
+    sass_dir: /assets/css
+    style:    compressed
