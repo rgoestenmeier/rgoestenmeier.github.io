@@ -16,8 +16,8 @@ body > .container {
     margin-bottom: 20px;
 }
 
+/*
 .img-fluid {
-    /* border: none; */
     padding: 10px 10px 10px 10px;
 
     width: 250px;
@@ -25,8 +25,8 @@ body > .container {
 }
 
 .vertical-center {
-    min-height: 10%; /* Fallback for browsers do NOT support vh unit */
-    min-height: 10vh; /* These two lines are counted as one :-)       */
+    min-height: 10%;
+    min-height: 10vh;
 
     display: flex;
     align-items: center;
@@ -46,10 +46,8 @@ body > .container {
     text-align: center;
 }
 
-/*
- *
-  */
 .my-auto {
     margin-top: auto;
     margin-bottom: auto;
 }
+*/

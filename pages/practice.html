@@ -13,28 +13,22 @@ title: Practice
 {% endcase %}
 
 <div class="container">
-	{% include component/breadcrumb.html %}
+    {% include component/breadcrumb.html %}
 
-	{% assign items = site.data.repositories | where: "category", "practice" %}
-	{% for item in items %}
-
-	<div class="row mb-2">
-		<div class="col-md-12" style="background-color: #ffffff;">
-			<div
-				class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative vertical-center">
-				<div class="col p-4 d-flex flex-column position-static">
-					<h3 class="mb-0">{{ item.subtitle }}</h3>
-					<div class="mb-1 text-muted">{{ item.title }}</div>
-					<p class="mb-auto">{{ item.text | markdownify }}</p>
-				</div>
-
-				<div class="col-auto d-none d-lg-block my-auto">
-					<a href="{{ item.link }}""><img class=" img-fluid rounded mb-3 mb-md-0"
-						src="{{ images }}/{{ item.img | downcase }}" alt=""></a>
-				</div>
-			</div>
-		</div>
-	</div>
-	{% endfor %}
-
+    <div class="row">
+        {% assign items = site.data.repositories | sort: "title" %}
+        {% for item in items %}
+        <div class="{{ colclass }} portfolio-item">
+            <div class="card h-100">
+                <a href="{{ item.link }}""><img class=" img-fluid rounded mb-3 mb-md-0"
+                    src="{{ images }}/{{ item.img | downcase }}" alt=""></a>
+                <div class="card-body">
+                    <h4 class="card-title"><a href="{{ item.link }}">{{ item.title }}</a></h4>
+                    <h5>{{ item.subtitle }}</h5>
+                    <p class="card-text">{{ item.text | markdownify }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
