@@ -1,3 +1,8 @@
+PARAM := $*
+
+
+PORT := 9999
+
 default:
 	@grep ":\s+#"
 
@@ -5,7 +10,7 @@ build:
 	./run_build
 
 serve:
-	jekyll serve --watch --incremental
+	jekyll serve --watch --incremental --port 9999 $(PARAM)
 
 deploy:
 	git add -A

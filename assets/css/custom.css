@@ -16,38 +16,16 @@ body > .container {
     margin-bottom: 20px;
 }
 
-/*
-.img-fluid {
-    padding: 10px 10px 10px 10px;
 
-    width: 250px;
-    height: auto;
+img > .img-fluid {
+	height: 300px;
+	width: 300px;
 }
 
-.vertical-center {
-    min-height: 10%;
-    min-height: 10vh;
-
-    display: flex;
-    align-items: center;
+.carousel-caption {
+	background-color: rgba(52, 58, 64, 0.8); /*  #343a40; */
 }
 
-.card {
-    text-align: center;
+.carousel-caption > * {
+	color: white;
 }
-
-.card-title {
-    text-align: center;
-}
-
-.card-body {
-    margin-top: 5px;
-    background-color: #dddddd;
-    text-align: center;
-}
-
-.my-auto {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-*/

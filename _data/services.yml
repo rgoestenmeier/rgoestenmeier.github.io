@@ -1,0 +1,17 @@
+- title: Developer
+  img: 1.jpg
+  subtitle: ""
+  link: "learn.html"
+  text: "Plan, Develop, Test and Deploy"
+
+- title: Architect
+  img: 2.jpg
+  subtitle: ""
+  link: "practice.html"
+  text: "Design and Build Fullstack /BI Solutions"
+
+- title: Teamworker
+  img: 1.jpg
+  subtitle: ""
+  link: "test.html"
+  text: "Work in a team to find the best solution using the right tools"
