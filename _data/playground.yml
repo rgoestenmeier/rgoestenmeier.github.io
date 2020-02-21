@@ -7,7 +7,7 @@
 
 - title: 'Dashboard'
   subtitle: 'Building and Dashboard with Bootstrap and Django'
-  link: http://azure.playground.via-internet.de/
+  link: https://github.com/rgoestenmeier/Dashboard_Django-Bootstrap/
   github: 'https://github.com/rgoestenmeier/Dashboard_Django-Bootstrap'
   img: playground/dashboard-bootstrap-django.png
   category: demo
