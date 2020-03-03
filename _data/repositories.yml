@@ -12,3 +12,10 @@
   link: "https://github.com/rgoestenmeier/git-tools"
   img: "git-toolbox.png"
   category: "git-tools"
+
+- title: "Jenkins Sample App"
+  subtitle: "Deploy a Groovy App with Jenkins"
+  text: ""
+  link: "https://github.com/jenkins-toolbox/SampleApp_GroovyCalculator"
+  img: "jenkins.png"
+  category: "jenkins"
