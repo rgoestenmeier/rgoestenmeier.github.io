@@ -29,3 +29,10 @@ img > .img-fluid {
 .carousel-caption > * {
 	color: white;
 }
+#navbarResponsive > ul > li > a:hover {
+	border-bottom: 2px solid white !important;
+}
+
+#navbarResponsive > ul > li:nth-child(1) > a:hover {
+	border-bottom: 2px solid #1670bf !important;
+}
