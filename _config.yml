@@ -3,6 +3,7 @@ name: 'Ralph Göstenmeier'
 title: 'Ralph Göstenmeier'
 description: 'Workd, Playground, Apps, Tips, Tricks, Samples and more'
 baseurl: '/'
+site: ''
 
 include: ["_pages"]
 #permalink: /:title/

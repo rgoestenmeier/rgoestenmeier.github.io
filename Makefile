@@ -4,21 +4,28 @@ PARAM := $*
 PORT := 9999
 
 default:
-	@grep ":\s+#"
+	@grep -E ":\s+#" Makefile
 
-build:
+collectlinks: 				# Collect all Links
 	./run_build
 
-serve: clean
+build: clean				# Build Jekyll
+	jekyll build
+
+serve: clean				# Serve Website
 	jekyll serve --watch --incremental --port 9999 $(PARAM)
 
-deploy:
+deploy:						# Deploy to GitHub
 	git add -A
 	git commit -m "change: update"
 	git push
 
-clean:
+clean:						# Clean Folders
 	rm -rf _site
 
-run: serve
+run: Serve					# Serve Website
 	#
+
+
+all: clean collectlinks build serve
+	@echo run all

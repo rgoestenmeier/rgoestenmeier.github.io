@@ -1,14 +1,16 @@
-- title: "Dashboard-with-Django-and-Bootstrap"
-  subtitle: ""
+#   20: use image            | ../rgoestenmeier.github.io/assets/img/dashboard-with-django-and-bootstrap.png
+- title: "Dashboard with-django-and-bootstrap"
+  subtitle: "Dashboard-with-Django-and-Bootstrap"
   text: ""
   link: "https://github.com/rgoestenmeier/Dashboard-with-Django-and-Bootstrap"
-  lang: "-"
-  img: "placeholder.png"
+  lang: "with-django-and-bootstrap"
+  img: "dashboard-with-django-and-bootstrap.png"
   rep: "Dashboard-with-Django-and-Bootstrap/"
   category: "dashboard-with-django-and-bootstrap"
-  step: "U1-T1-S1-T1"
+  step: "U1-T1-S1-L#-T2-I1-M#-T#"
 
 #
+#   21: use placeholder      | placeholder.png
 - title: "Dashboard "
   subtitle: "Django Bootstrap"
   text: ""
@@ -20,25 +22,27 @@
   step: "U1-T1-S2-L1-T2-I#-M1-T#"
 
 #
-- title: "direnv"
-  subtitle: ""
+#   20: use image            | ../rgoestenmeier.github.io/assets/img/direnv.png
+- title: "direnv "
+  subtitle: "direnv"
   text: ""
   link: "https://github.com/rgoestenmeier/direnv"
-  lang: "-"
-  img: "placeholder.png"
+  lang: ""
+  img: "direnv.png"
   rep: "direnv/"
   category: "direnv"
-  step: "U1-T1-S1-T1"
+  step: "U1-T1-S1-L1-T2-I1-M#-T#"
 
 #
-- title: "git-tools"
-  subtitle: ""
+#   20: use image            | ../rgoestenmeier.github.io/assets/img/git-tools.png
+- title: "git tools"
+  subtitle: "git-tools"
   text: ""
   link: "https://github.com/rgoestenmeier/git-tools"
-  lang: "-"
-  img: "placeholder.png"
+  lang: "tools"
+  img: "git-tools.png"
   rep: "git-tools/"
   category: "git-tools"
-  step: "U1-T1-S1-T1"
+  step: "U1-T1-S1-L#-T2-I1-M#-T#"
 
 #

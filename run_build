@@ -9,7 +9,7 @@ _LINK_GITHUB=https://github.com
 _USER="$(basename "$(dirname "$PWD")")"
 _HERE="$(cd ..; pwd)"
 
-_DIRGIT=$_FLDR_CLOUD/Development.GitHub/img.github.io
+_DIRGIT=$_FLDR_CLOUD/Development.Resources/img.github.io
 _DIRIMG=../${_USER}.github.io/assets/img
 
 LOGL=1
@@ -22,8 +22,8 @@ LOG() {
 	(( LOGPOS = $LOGPOS + 1))
 
 	if  [[ $_LOGL -le $LOGL ]]; then
-		printf "# %4s: %-10s =%s\n" "$LOGPOS" "$_PAR1" "$_PAR2"
-		printf "# %4s: %-10s =%s\n" "$LOGPOS" "$_PAR1" "$_PAR2" >&2
+		printf "# %4s: %-20s | %s\n" "$LOGPOS" "$_PAR1" "$_PAR2"
+		printf "# %4s: %-20s | %s\n" "$LOGPOS" "$_PAR1" "$_PAR2" >&2
 	fi
 }
 
@@ -32,6 +32,16 @@ ADD() {
 	local _PAR2; _PAR2="${2:- }"
 
 	echo "${_PAR1} ${_PAR2}"
+}
+
+CHECKIMAGE() {
+	local _PAR1; _PAR1="${1}";
+
+	if   [[ -f "$_PAR1" ]]; then
+		LOG 2 "image exists" 		"$_PAR1"
+	else
+		LOG 2 "image doesnot exists" "$_PAR1"
+	fi
 }
 
 LOG 1 "Scanning repositories" "$_HERE"
@@ -104,85 +114,96 @@ do
 
 		_SUBTITLE="${_REPO#*_}"			# DataStructures-and-Algorithms-01
 		_SUBTITLE="${_SUBTITLE//-/ }"	# DataStructures and Algorithms 01
-
-		_TYPE="${_TEMP%%-*}"
-		_LANG="${_TEMP#*-}"
-		_LANG="${_LANG,,}"
-
-		LOG 2 "SUBTITLE" "$_SUBTITLE"
-		LOG 2 "TYPE"     "$_TYPE"
-		LOG 2 "LANG"     "$_LANG"
-
-		if [[ "${_LANG}" == "${_TYPE,,}" ]]; then
-			_LANG=""
-			_STEP="${_STEP}-L1"
-		else
-			_STEP="${_STEP}-L#"
-		fi
-
-		LOG 2 "LANG" "$_LANG"
-
-		if [[ "$_TYPE" = "$_LANG" ]]; then
-			_TITLE="$_TYPE"
-			LOG 2 "TITLE" "$_TITLE"
-
-			_STEP="${_STEP}-T1"
-		else
-			_TITLE="$_TYPE $_LANG"
-			LOG 2 "TITLE" "$_TITLE"
-
-			_STEP="${_STEP}-T2"
-		fi
-
-		_IMAGE="${_SUBTITLE/ /-}.png"
-		_IMAGE="${_IMAGE,,}"
-
-		LOG 2 "check image" "$_DIRIMG/$_IMAGE"
-		if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
-			LOG 2 "use existing image" "$_DIRIMG/$_IMAGE"
-
-			_STEP="${_STEP}-I1"
-		elif [[ -f "$_DIRGIT/$_IMAGE" ]]; then
-			cp "$_DIRGIT/$_IMAGE" "$_DIRIMG"
-			LOG 2 "copy master image" "$_DIRGIT/$_IMAGE"
-
-			_STEP="${_STEP}-I2"
-		else
-			_IMAGE="${_CATEGORY/ /-}.png"
-			_IMAGE="${_IMAGE,,}"
-			LOG 2 "check new image" "$_DIRIMG/$_IMAGE"
-
-			if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
-				LOG 2 "use new existing image" "$_DIRIMG/$_IMAGE"
-
-				_STEP="${_STEP}-I3"
-			elif [[ -f "$_DIRGIT/$_IMAGE" ]]; then
-				LOG 1 "copy master image" "$_DIRGIT/$_IMAGE $_DIRIMG"
-				cp "$_DIRGIT/$_IMAGE" "$_DIRIMG"
-
-				_STEP="${_STEP}-I4"
-			else
-				_STEP="${_STEP}-I#"
-			fi
-		fi
-
-		if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
-			_STEP="${_STEP}-M#"
-		else
-			_IMAGE="placeholder.png"
-
-			_STEP="${_STEP}-M1"
-		fi
-
-		[[ "$_CATEGORY" =~ "missing"	]] && _CATEGORY=missing
-		[[ "$_CATEGORY" =~ "learning"	]] && _CATEGORY=learn
-		[[ "$_CATEGORY" =~ "awesome"	]] && _CATEGORY=learn
-		[[ "$_CATEGORY" =~ "koans"		]] && _CATEGORY=test
-		[[ "$_CATEGORY" =~ "course"		]] && _CATEGORY=practice
-		[[ "$_CATEGORY" =~ "workshop"	]] && _CATEGORY=practice
-
-		LOG 2 "CATEGORY/IM" "$_CATEGORY / $_IMAGE"
 	fi
+
+	_TYPE="${_TEMP%%-*}"
+	_LANG="${_TEMP#*-}"
+	_LANG="${_LANG,,}"
+
+	LOG 2 "SUBTITLE" "$_SUBTITLE"
+	LOG 2 "TYPE"     "$_TYPE"
+	LOG 2 "LANG"     "$_LANG"
+
+	if [[ "${_LANG}" == "${_TYPE,,}" ]]; then
+		_LANG=""
+		_STEP="${_STEP}-L1"
+	else
+		_STEP="${_STEP}-L#"
+	fi
+
+	LOG 2 "LANG" "$_LANG"
+
+	if [[ "$_TYPE" = "$_LANG" ]]; then
+		_TITLE="$_TYPE"
+		LOG 2 "TITLE" "$_TITLE"
+
+		_STEP="${_STEP}-T1"
+	else
+		_TITLE="$_TYPE $_LANG"
+		LOG 2 "TITLE" "$_TITLE"
+
+		_STEP="${_STEP}-T2"
+	fi
+
+	_IMAGE="${_SUBTITLE/ /-}.png"
+	_IMAGE="${_IMAGE,,}"
+
+	LOG 2 "check image" "$_DIRIMG/$_IMAGE"
+
+	CHECKIMAGE "$_DIRIMG/$_IMAGE"
+	CHECKIMAGE "$_DIRGIT/$_IMAGE"
+
+	if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
+		LOG 2 "use existing image" "$_DIRIMG/$_IMAGE"
+
+		_STEP="${_STEP}-I1"
+	elif [[ -f "$_DIRGIT/$_IMAGE" ]]; then
+		cp "$_DIRGIT/$_IMAGE" "$_DIRIMG"
+		LOG 2 "copy master image" "$_DIRGIT/$_IMAGE"
+
+		_STEP="${_STEP}-I2"
+	else
+		_IMAGE="${_CATEGORY/ /-}.png"
+		_IMAGE="${_IMAGE,,}"
+		LOG 2 "check new image" "$_DIRIMG/$_IMAGE"
+
+		CHECKIMAGE "$_DIRIMG/$_IMAGE"
+		CHECKIMAGE "$_DIRGIT/$_IMAGE"
+
+		if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
+			_STEP="${_STEP}-I3"
+			LOG 2 "use new existing image" "$_DIRIMG/$_IMAGE"
+		elif [[ -f "$_DIRGIT/$_IMAGE" ]]; then
+			_STEP="${_STEP}-I4"
+
+			cp "$_DIRGIT/$_IMAGE" "$_DIRIMG"
+
+			LOG 1 "copy master image" "$_DIRGIT/$_IMAGE $_DIRIMG"
+		else
+			_STEP="${_STEP}-I#"
+		fi
+	fi
+
+	if   [[ -f "$_DIRIMG/$_IMAGE" ]]; then
+		_STEP="${_STEP}-M#"
+
+		LOG 1 "use image" "$_DIRIMG/$_IMAGE"
+	else
+		_STEP="${_STEP}-M1"
+
+		_IMAGE="placeholder.png"
+
+		LOG 1 "use placeholder" "$_IMAGE"
+	fi
+
+	[[ "$_CATEGORY" =~ "missing"	]] && _CATEGORY=missing
+	[[ "$_CATEGORY" =~ "learning"	]] && _CATEGORY=learn
+	[[ "$_CATEGORY" =~ "awesome"	]] && _CATEGORY=learn
+	[[ "$_CATEGORY" =~ "koans"		]] && _CATEGORY=test
+	[[ "$_CATEGORY" =~ "course"		]] && _CATEGORY=practice
+	[[ "$_CATEGORY" =~ "workshop"	]] && _CATEGORY=practice
+
+	LOG 2 "CATEGORY/IM" "$_CATEGORY / $_IMAGE"
 
 	if [[ "$_TITLE" == "missing" ]]; then
 		_TITLE="$_SUBTITLE"
