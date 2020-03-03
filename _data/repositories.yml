@@ -1,5 +1,5 @@
 - title: "direnv"
-  subtitle: ""
+  subtitle: "Config your development environment per folder"
   text: ""
   link: "https://github.com/rgoestenmeier/direnv"
   img: "direnv-toolbox.png"
@@ -7,7 +7,7 @@
 
 #
 - title: "git-tools"
-  subtitle: ""
+  subtitle: "Script and tools for daily work with git"
   text: ""
   link: "https://github.com/rgoestenmeier/git-tools"
   img: "git-toolbox.png"
