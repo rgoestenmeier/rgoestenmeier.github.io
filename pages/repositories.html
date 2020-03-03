@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Test
+title: Repositories
 numberofcols: 3
 ---
 
@@ -20,11 +20,11 @@ numberofcols: 3
 				/></a>
 
 				<div class="card-body">
+					<p class="card-text">{{ item.text | markdownify }}</p>
 					<h4 class="card-title">
 						<a href="{{ item.link }}">{{ item.title }}</a>
 					</h4>
 					<h5>{{ item.subtitle }}</h5>
-					<p class="card-text">{{ item.text | markdownify }}</p>
 				</div>
 			</div>
 		</div>

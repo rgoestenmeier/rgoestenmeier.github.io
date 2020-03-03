@@ -1,11 +1,11 @@
-- title: 'Azure Playground'
+- title: 'Azure'
   subtitle: 'Building and Deploying Web Apps on Microsoft Azure'
   link: https://via-internet-django-dashboard.azurewebsites.net/
   github: 'https://github.com/rgoestenmeier/Dashboard-with-Django-and-Bootstrap'
   img: playground/azure.png
   category: demo
 
-- title: 'Dashboard with Django and Bootstrap'
+- title: 'Dashboard'
   subtitle: 'Building and Dashboard with Bootstrap and Django'
   link: https://github.com/rgoestenmeier/Dashboard-with-Django-and-Bootstrap
   github: 'https://github.com/rgoestenmeier/Dashboard-with-Django-and-Bootstrap'
